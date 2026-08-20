@@ -1,0 +1,11 @@
+[Unit]
+Description=Apply RTX 3090 undervolt (locked clocks + offset) via LACT
+After=lactd.service
+Requires=lactd.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/lact-3090-undervolt.sh
+
+[Install]
+WantedBy=multi-user.target

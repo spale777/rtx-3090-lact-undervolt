@@ -28,9 +28,16 @@ LACT implements this via NVML: `set_gpu_locked_clocks` (needs `min_core_clock` +
   `MIN_CLOCK=300`, `MAX_CLOCK=1700`, `CLOCK_OFFSET=200`, `GPU_MATCH="3090"`.
 - `lact-3090-undervolt.service` — optional systemd oneshot (After=lactd.service).
 
+## Requirements
+- [LACT](https://github.com/ilya-zlobintsev/LACT) (headless build is enough) —
+  download the `.deb`/`.rpm` from the
+  [releases page](https://github.com/ilya-zlobintsev/LACT/releases).
+- NVIDIA proprietary driver with NVML working (`nvidia-smi` functional).
+- `python3` with PyYAML recommended (preserves existing LACT config on merge).
+
 ## Install (on the 3090 server)
 ```bash
-# 1. Install headless LACT (deb/rpm from github.com/ilya-zlobintsev/LACT/releases)
+# 1. Install headless LACT (deb/rpm from https://github.com/ilya-zlobintsev/LACT/releases)
 apt install ./lact-headless-*.deb        # move .deb out of /root to avoid _apt warning
 systemctl enable --now lactd
 lact cli list-gpus                       # must show the 3090s (needs NVIDIA driver/NVML)
